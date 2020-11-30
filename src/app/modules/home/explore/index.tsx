@@ -1,11 +1,18 @@
 import React from 'react';
+import HomeLayout from './../../../layout/homeLayout';
+import { usePageTitle } from './../../../hooks/usePageTitle';
 
 interface Props {}
 
 const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
+    
+    usePageTitle('Music Life | Explore');
+    
     return (
         <>
-            <div>Explore</div>
+            <HomeLayout>
+                <div>Explore</div>
+            </HomeLayout>
         </>
     )
 };

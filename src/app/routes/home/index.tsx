@@ -9,9 +9,9 @@ const BaseRoutes = () => {
     return (
         <>
             <Switch>
-                <Route path={RoutePaths.Explore} component={ExploreScreen} />
-                <Route path={RoutePaths.Genres} component={GenreScreen} />
-                <Route path={RoutePaths.Album} component={AlbumScreen} />
+                <Route path={RoutePaths.Explore}exact component={ExploreScreen} />
+                <Route path={RoutePaths.Genres} exact component={GenreScreen} />
+                <Route path={RoutePaths.Album} exact component={AlbumScreen} />
             </Switch>
         </>
     )

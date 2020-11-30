@@ -16,6 +16,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const Routes: React.FunctionComponent<Props> = (props: Props) => {
+    console.log(props.user + "Router")
     return (
         <>
             <Router>
@@ -26,7 +27,9 @@ const Routes: React.FunctionComponent<Props> = (props: Props) => {
                         <Redirect from={RoutePaths.Auth.SignIn} to={RoutePaths.Explore} />
                     )}
                     {!props.user ? (
-                        <Redirect from={RoutePaths.Explore} to={RoutePaths.Auth.SignIn} />
+                        <>
+                            <Redirect to={RoutePaths.Auth.SignIn} />
+                        </>
                     ) : (
                         <BaseRoutes />
                     )}

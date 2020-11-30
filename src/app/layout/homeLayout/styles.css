@@ -1,0 +1,17 @@
+.left-menu-container {
+    background-color: #121212;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.right-body-container {
+    height: 100vh;
+    background-color: #181818;
+}
+
+.layout-container {
+    width: 100%;
+    overflow: hidden;
+}

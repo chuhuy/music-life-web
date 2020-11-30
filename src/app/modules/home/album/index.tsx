@@ -1,11 +1,14 @@
 import React from 'react';
+import HomeLayout from './../../../layout/homeLayout';
 
 interface Props {}
 
 const AlbumScreen: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
-            <div>Album</div>
+            <HomeLayout>
+                <div>Album</div>
+            </HomeLayout>
         </>
     )
 };

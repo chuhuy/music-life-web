@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 import { RoutePaths } from '../../../shared/constants/routePaths';
 import './../../../../styles/auth.css';
 import { usePageTitle } from './../../../hooks/usePageTitle';
@@ -6,10 +6,10 @@ import { loginUsername, loginEmail } from './../../../redux/modules/auth/actions
 import { ReduxCallbacks } from './../../../models/redux/ReduxCallback'
 import { SignInForm } from './../../../models/form/signIn';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
-interface Props extends DispatchProps {}
+interface Props extends DispatchProps, StateProps {}
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
@@ -17,8 +17,11 @@ const mapDispatchToProps = (dispatch: any) => {
         onLoginEmail: (user: SignInForm, callbacks?: ReduxCallbacks) => dispatch(loginEmail(user, callbacks)),
     };
 };
-
+const mapStateToProps = (state: any) => ({
+    user: state.auth.refresh_token
+});
 const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
+    console.log(props.user)
     
     usePageTitle('Music Life | Sign In');
 
@@ -26,6 +29,13 @@ const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
         username: '',
         password: ''
     };
+    
+    const [inputRefs] = useState<{
+		[key: string]: RefObject<HTMLInputElement>;
+	}>({
+        username: useRef<HTMLInputElement>(null),
+        password: useRef<HTMLInputElement>(null)
+	});
 
     const handleSignIn = (values: SignInForm) => {
         console.log(values);
@@ -44,7 +54,7 @@ const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
                 initialValues={initialValue}
                 onSubmit={(values) => {handleSignIn(values);}}
             >
-                {({submitForm}) => (<>
+                {({handleSubmit, values}) => (<>
                     <div id="main-wrapper" className="oxyy-login-register">
                         <div className="hero-wrap d-flex align-items-center h-100">
                             <div className="hero-mask opacity-4 bg-secondary"></div>
@@ -68,14 +78,30 @@ const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
                                         <div className="col-11 col-lg-11 mx-auto">
                                         <h3 className="text-9 font-weight-600 text-center mt-2 mb-3">Sign In</h3>
                                         <p className="text-center mb-4">New to Music Life? <a className="btn-link" href={RoutePaths.Auth.Register}><u>Create an Account</u></a></p>
-                                        <form id="loginForm">
                                             <div className="form-group">
                                             <label className="text-dark font-weight-600" htmlFor="emailAddress">Username or Email Address</label>
-                                            <input type="email" className="form-control rounded-0" id="emailAddress" placeholder="Enter Your Email"/>
+                                            <Field
+                                                innerRef={inputRefs.username}
+                                                component="input"
+                                                className="form-control rounded-0"
+                                                placeholder="Enter your username or email"
+                                                row={1}
+                                                id="inputUsername"
+                                                name="username"
+                                            />
                                             </div>
                                             <div className="form-group">
                                             <label className="text-dark font-weight-600" htmlFor="loginPassword">Password</label>
-                                            <input type="password" className="form-control rounded-0" id="loginPassword" placeholder="Enter Password"/>
+                                            <Field
+                                                innerRef={inputRefs.password}
+                                                component="input"
+                                                className="form-control rounded-0"
+                                                placeholder="Enter your password"
+                                                row={1}
+                                                id="inputPassword"
+                                                name="password"
+                                                type="password"
+                                            />
                                             </div>
                                             <div className="row">
                                             <div className="col-sm">
@@ -85,8 +111,7 @@ const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
                                                 </div>
                                             </div>
                                             </div>
-                                            <button className="btn btn-dark btn-block rounded-0 my-4">Sign In</button>
-                                        </form>
+                                            <button className="btn btn-dark btn-block rounded-0 my-4" onClick={() => {handleSignIn(values)}}>Sign In</button>
                                         {/* <div className="d-flex align-items-center my-3">
                                             <hr className="flex-grow-1"/>
                                             <span className="mx-2 text-2 text-muted">Or sign in with</span>
@@ -119,6 +144,7 @@ const SignInScreen: React.FunctionComponent<Props> = (props: Props) => {
     )
 };
 
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
 
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
+type StateProps = ReturnType<typeof mapStateToProps>;
