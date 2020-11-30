@@ -7,11 +7,12 @@
 }
 
 .right-body-container {
-    height: 100vh;
+    height: calc(100vh - 70px);
     background-color: #181818;
 }
 
 .layout-container {
     width: 100%;
     overflow: hidden;
+    background-color: #181818;
 }

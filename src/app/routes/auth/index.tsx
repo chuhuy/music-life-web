@@ -12,21 +12,7 @@ const AuthRoutes = () => {
                 <Route path={RoutePaths.Auth.SignIn} exact component={SignInScreen} />
                 <Route path={RoutePaths.Auth.Register} exact component={RegisterScreen} />
                 <Route path={RoutePaths.Auth.ForgotPassword} exact component={ForgotPasswordScreen} />
-                <Redirect
-                    from={RoutePaths.Explore}
-                    to={RoutePaths.Auth.SignIn}
-                    exact
-                />
-                <Redirect
-                    from={RoutePaths.Genres}
-                    to={RoutePaths.Auth.SignIn}
-                    exact
-                />
-                <Redirect
-                    from={RoutePaths.Album}
-                    to={RoutePaths.Auth.SignIn}
-                    exact
-                />
+                <Redirect to={RoutePaths.Auth.SignIn} />
             </Switch>
         </>
     )

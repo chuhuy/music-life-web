@@ -1,0 +1,23 @@
+#header-container {
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    justify-content: space-between;
+    padding-left: 15px;
+    background-color: #181818;
+}
+
+#header-search {
+    width: 200px;
+    height: 50px;
+    background-color: red;
+}
+
+#header-setting {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    /* background-color: blue; */
+}

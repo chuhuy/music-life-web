@@ -4,17 +4,17 @@ import { usePageTitle } from './../../../hooks/usePageTitle';
 
 interface Props {}
 
-const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
+const ArtistScreen: React.FunctionComponent<Props> = (props: Props) => {
     
-    usePageTitle('Music Life | Explore');
-    
+    usePageTitle('Music Life | Artist')
+
     return (
         <>
             <HomeLayout>
-                <div style={{color: 'white'}}>Explore</div>
+                <div style={{color: 'white'}}>Artist</div>
             </HomeLayout>
         </>
     )
 };
 
-export default ExploreScreen;
+export default ArtistScreen;

@@ -22,16 +22,15 @@ const Routes: React.FunctionComponent<Props> = (props: Props) => {
             <Router>
                 <Switch>
                     {!props.user ? (
-                        <AuthRoutes />
-                    ) : (
-                        <Redirect from={RoutePaths.Auth.SignIn} to={RoutePaths.Explore} />
-                    )}
-                    {!props.user ? (
                         <>
-                            <Redirect to={RoutePaths.Auth.SignIn} />
+                            <AuthRoutes />
+                            {/* <Redirect to={RoutePaths.Auth.SignIn} /> */}
                         </>
                     ) : (
-                        <BaseRoutes />
+                        <>
+                            <BaseRoutes />
+                            {/* <Redirect from={RoutePaths.Auth.SignIn} to={RoutePaths.Genres} /> */}
+                        </>
                     )}
                 </Switch>
             </Router>

@@ -7,5 +7,5 @@ import { counterReducer } from './modules/counter/reducer';
 export default combineReducers({
     auth: authReducer,
     player: playerReducer,
-    counter: counterReducer
+    counter: counterReducer,
 });
