@@ -1,6 +1,12 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
+axios.interceptors.request.use(req => {
+    console.log(`${req.method} ${req.url}`);
+    console.log('Sent req')
+    // Important: request interceptors **must** return the request.
+    return req;
+ });
 export const API = {
     get: async (url: string, param: any) => {
         try {
