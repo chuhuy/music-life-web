@@ -1,4 +1,4 @@
-import React, { ReactChild } from 'react';
+import React, { ReactChild, useMemo } from 'react';
 import './styles.css';
 import Player from './../../shared/components/player';
 import SideBar from './../../shared/components/sidebar';
@@ -23,7 +23,8 @@ const HomeLayout: React.FunctionComponent<Props> = (props: Props) => {
                         {props.children}
                     </Col>
                 </div>
-                <Player />
+                {useMemo(() => (<Player/>), [])}
+                {/* (<Player />) */}
             </div>
         </>
     )

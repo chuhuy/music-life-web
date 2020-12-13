@@ -30,8 +30,6 @@
     padding-right: 20px;
     background-color: #1D1D1D;
     color: #DDDDDD;
-    outline: none;
-    box-shadow: none;
 }
 
 .search-input:focus {

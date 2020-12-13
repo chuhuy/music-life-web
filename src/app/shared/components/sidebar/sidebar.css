@@ -38,8 +38,25 @@
 
 .active-menu-item {
     color: #5773FF;
+    /* border-right-width: 5px;
+    border-right-color: #5773FF;
+    background-color: red; */
 }
 
 .inactive-menu-item {
     color: #FFF;
+}
+
+.menu-item {
+    font-weight: bold;
+    padding-left: 20px;
+    /* text-align: center; */
+    font-size: large;
+    margin-top: 20px;
+}
+
+.menu-item :hover {
+    color: #FFF;
+    background-color: #5773FF;
+    border-radius: 5px;
 }
