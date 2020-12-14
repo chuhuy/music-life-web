@@ -34,7 +34,7 @@ const Side: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
     
-            <Nav className="d-none d-md-block sidebar position-fixed" style={{paddingRight: '50px'}}>
+            <Nav className="d-none d-md-block sidebar position-fixed" style={{paddingRight: '80px'}}>
                 <div className="sidebar-sticky"></div>
                 <Nav.Item className="menu-item" style={{marginTop: '100px'}}>
                     <Nav.Link className={currentTab === 0 ? 'active-menu-item' : 'inactive-menu-item'} href={RoutePaths.Explore}>Explore</Nav.Link>

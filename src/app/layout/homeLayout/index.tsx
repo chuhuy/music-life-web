@@ -7,7 +7,6 @@ import "./../../shared/components/sidebar/sidebar.css";
 import Header from "./../../shared/components/header";
 import { useDispatch } from "react-redux";
 import { DISABLE_LOADING } from "../../redux/modules/loading/actions";
-
 interface Props {
   children: ReactChild;
 }
@@ -30,13 +29,9 @@ const HomeLayout: React.FunctionComponent<Props> = (props: Props) => {
             {props.children}
           </Col>
         </div>
-        {useMemo(
-          () => (
-            <Player />
-          ),
-          []
-        )}
-        {/* (<Player />) */}
+        {useMemo(() => (
+          <Player />
+        ), [])}
       </div>
     </>
   );

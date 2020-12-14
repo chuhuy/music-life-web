@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { RoutePaths } from './../shared/constants/routePaths';
 import AuthRoutes from './auth';
 import BaseRoutes from './home';
 
@@ -16,7 +15,6 @@ const mapStateToProps = (state: any) => ({
 });
 
 const Routes: React.FunctionComponent<Props> = (props: Props) => {
-    console.log(props.user + "Router")
     return (
         <>
             <Router>

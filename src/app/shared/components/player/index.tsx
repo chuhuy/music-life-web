@@ -12,10 +12,11 @@ import {
   faRedo,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Song } from "../../../models/song";
 import { PLAY, SKIP, PAUSE } from "../../../redux/modules/player/actions";
 import { useWindowDimensions } from "./../../../hooks/useWindowDimensions";
+import { RootState } from "../../../redux/reducers";
 
 interface Props extends DispatchProps, StateProps {}
 
@@ -33,8 +34,9 @@ const mapStateToProps = (state: any) => ({
 const Player = (props: Props) => {
   const { width } = useWindowDimensions();
 
+  const player = useSelector((state: RootState) => state.player);
+
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
 
   // const audioRef = useRef();
   const [refs] = useState<{
@@ -43,10 +45,17 @@ const Player = (props: Props) => {
     audio: useRef<HTMLAudioElement>(null),
   });
 
+  const [duration, setDuration] = useState(100);
+
   useEffect(() => {
-    if(refs.audio.current) setDuration(refs.audio.current.duration);
-    // refs.audio.current?.play();
-  }, []);
+    props.playMusic();
+    refs.audio.current?.play();
+  }, [props.player.url]);
+
+  // useEffect(() => {
+  //   if(refs.audio.current) {setDuration(refs.audio.current.duration)}
+  // }, [refs.audio])
+
   const handlePausePlayClick = () => {
     if (props.player.isPlaying) {
       refs.audio.current?.pause();
@@ -57,9 +66,12 @@ const Player = (props: Props) => {
     }
   };
   const handleTimeSliderChange = (x: any) => {
-    if (refs.audio.current) refs.audio.current.currentTime = x;
-    console.log(x);
-    setCurrentTime(x);
+    console.log(x)
+    if (refs.audio.current) {
+      refs.audio.current.currentTime = x * refs.audio.current.duration / 100;
+      setCurrentTime(x * refs.audio.current.duration / 100);
+    }
+    // console.log(x);
     if (!props.player.isPlaying) {
       props.playMusic();
       if (refs.audio.current) refs.audio.current.play();
@@ -67,81 +79,98 @@ const Player = (props: Props) => {
   };
   return (
     <>
-      <div className="player-container row" style={{zIndex: 100}}>
-        <div className="player-left-section section-vertical-align">
-          <img
-            src={props.player.image_url}
-            className="player-image"
-            alt="Current Song"
-          />
-          <Col className={`title-group ${width < 400 ? "d-none" : ""}`}>
-            <div className="player-song-title">{props.player.title}</div>
-            <div className="player-artist">{props.player.artists}</div>
-          </Col>
-        </div>
-        <div className="player-center-section section-vertical-align">
-          <div className="section-vertical-align">
-            <button onClick={() => {}} className="player-icon-button">
-              <FontAwesomeIcon icon={faRandom} color="#FFF" size="1x" />
-            </button>
-            <button onClick={() => {}} className="player-icon-button">
-              <FontAwesomeIcon icon={faStepBackward} color="#FFF" size="1x" />
-            </button>
-            <button
-              onClick={handlePausePlayClick}
-              className="player-icon-button"
-            >
-              <div className="play-icon">
-                <FontAwesomeIcon
-                  icon={props.player.isPlaying ? faPause : faPlay}
-                  color="#FFF"
-                  size="1x"
-                />
+      <div className="player-container row" style={{ zIndex: 100 }}>
+        {player.url !== "" && (
+          <div className="player-left-section section-vertical-align">
+            <img
+              src={props.player.image_url}
+              className="player-image"
+              alt="Current Song"
+            />
+            <Col className={`title-group ${width < 400 ? "d-none" : ""}`}>
+              <div
+                className="player-song-title"
+                style={{ height: "20px", width: "120px", overflow: "hidden" }}
+              >
+                {props.player.title}
               </div>
-            </button>
-            <button onClick={() => {}} className="player-icon-button">
-              <FontAwesomeIcon icon={faStepForward} color="#FFF" size="1x" />
-            </button>
-            <button onClick={() => {}} className="player-icon-button">
-              <FontAwesomeIcon icon={faRedo} color="#FFF" size="1x" />
-            </button>
+              <div
+                className="player-artist"
+                style={{ height: "20px", width: "120px", overflow: "hidden" }}
+              >
+                {props.player.artists}
+              </div>
+            </Col>
           </div>
-          <div>
-            <TimeSlider
-              axis="x"
-              xmax={duration}
-              x={currentTime}
-              onChange={({ x }) => handleTimeSliderChange(x)}
-              styles={{
-                track: {
-                  backgroundColor: "#B3B3B3",
-                  height: "4px",
-                },
-                active: {
-                  backgroundColor: "#5773FF",
-                  height: "4px",
-                },
-                thumb: {
-                  width: "10px",
-                  height: "10px",
-                  backgroundColor: "#FFF",
-                  borderRadius: 5,
-                },
-              }}
-            />
-            <audio
-              ref={refs.audio}
-              src={props.player.url}
-              onTimeUpdate={() =>
-                setCurrentTime(
-                  refs.audio.current ? refs.audio.current.currentTime : 0
-                )
-              }
-              onEnded={() => props.pauseMusic()}
-            />
+        )}
+        {player.url !== "" && (
+          <div className="player-center-section section-vertical-align">
+            <div className="section-vertical-align">
+              <button onClick={() => {}} className="player-icon-button">
+                <FontAwesomeIcon icon={faRandom} color="#FFF" size="1x" />
+              </button>
+              <button onClick={() => {}} className="player-icon-button">
+                <FontAwesomeIcon icon={faStepBackward} color="#FFF" size="1x" />
+              </button>
+              <button
+                onClick={handlePausePlayClick}
+                className="player-icon-button"
+              >
+                <div className="play-icon">
+                  <FontAwesomeIcon
+                    icon={props.player.isPlaying ? faPause : faPlay}
+                    color="#FFF"
+                    size="1x"
+                  />
+                </div>
+              </button>
+              <button onClick={() => {}} className="player-icon-button">
+                <FontAwesomeIcon icon={faStepForward} color="#FFF" size="1x" />
+              </button>
+              <button onClick={() => {}} className="player-icon-button">
+                <FontAwesomeIcon icon={faRedo} color="#FFF" size="1x" />
+              </button>
+            </div>
+            <div>
+              <TimeSlider
+                axis="x"
+                xmax={duration}
+                x={currentTime}
+                onChange={({ x }) => handleTimeSliderChange(x)}
+                styles={{
+                  track: {
+                    backgroundColor: "#B3B3B3",
+                    height: "4px",
+                  },
+                  active: {
+                    backgroundColor: "#5773FF",
+                    height: "4px",
+                  },
+                  thumb: {
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: "#FFF",
+                    borderRadius: 5,
+                  },
+                }}
+              />
+              <audio
+                ref={refs.audio}
+                src={props.player.url}
+                onTimeUpdate={() => {
+                  // if (refs.audio.current) console.log(Math.floor(refs.audio.current.currentTime * 100 / refs.audio.current.duration))
+                  setCurrentTime(
+                    refs.audio.current
+                      ? refs.audio.current.currentTime * 100 / refs.audio.current.duration
+                      : 0
+                  );
+                }}
+                onEnded={() => props.pauseMusic()}
+              />
+            </div>
           </div>
-        </div>
-        {width > 768 && (
+        )}
+        {player.url !== "" && width > 768 && (
           <div className="player-right-section section-vertical-align"></div>
         )}
       </div>

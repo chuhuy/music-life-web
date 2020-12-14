@@ -5,13 +5,11 @@ import Genres from "./components/genres";
 import Albums from "./components/albums";
 import TopChart from "./components/chart";
 import { getChart, getTopArtist } from "./../../../api/explore";
-import { Genre } from "../../../models/genre";
 import { Artist } from "../../../models/artist";
-import { Album } from "../../../models/album";
 import { Song } from "../../../models/song";
 import { useWindowDimensions } from "../../../hooks/useWindowDimensions";
 import { useDispatch } from "react-redux";
-import { PLAY, SKIP } from "../../../redux/modules/player/actions";
+import { SKIP } from "../../../redux/modules/player/actions";
 
 interface Props {}
 
@@ -50,12 +48,14 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
   const handlePlayTrendingSong = () => {
     const song: Song = {
       id: 1,
-      title: 'Ice Cream',
-      artists: 'BLACKPINK, Selena Gomez',
-      url: 'https://res.cloudinary.com/anhnguyen3001/video/upload/v1605197446/MusicLife/songUsUk/phhvk9shvbaorfg0o48n.mp3',
-      image_url: 'https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/0/0/4/1/0041083628270504efdb6499396aacea.jpg'
-    }
-    dispatch({type: SKIP, payload: song})
+      title: "Ice Cream",
+      artists: "BLACKPINK, Selena Gomez",
+      url:
+        "https://res.cloudinary.com/anhnguyen3001/video/upload/v1605197446/MusicLife/songUsUk/phhvk9shvbaorfg0o48n.mp3",
+      image_url:
+        "https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/0/0/4/1/0041083628270504efdb6499396aacea.jpg",
+    };
+    dispatch({ type: SKIP, payload: song });
     // dispatch({type: PLAY})
   };
 
@@ -82,7 +82,7 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
               width: "100%",
               height: "calc(100% - 70px)",
               background:
-                "linear-gradient(to right, #181818 60%, transparent 90%)",
+                "linear-gradient(to right, #181818 50%, transparent 90%)",
               position: "absolute",
               top: "60px",
               left: 0,
@@ -91,12 +91,12 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
           >
             <div
               style={{
-                color: "white",
-                fontSize: "large",
+                color: "#5773FF",
+                fontSize: "30px",
                 fontWeight: "bold",
                 marginLeft: "80px",
                 marginBottom: "20px",
-                marginTop: '50px'
+                marginTop: "20vh",
               }}
             >
               TRENDING NOW
@@ -128,25 +128,88 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
                 borderRadius: "20px",
                 width: "150px",
                 marginLeft: "100px",
-                paddingTop: '10px',
-                paddingBottom: '10px',
-                fontSize: '15px',
-                fontWeight: 'bold',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '50px',
-                outline: 'none',
-                border: 'none'
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                fontSize: "15px",
+                fontWeight: "bold",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "50px",
+                outline: "none",
+                border: "none",
               }}
-              onClick={() => {handlePlayTrendingSong()}}
+              onClick={() => {
+                handlePlayTrendingSong();
+              }}
             >
               Listen now
             </button>
+            <div
+              style={{
+                color: "#FFF",
+                marginTop: "60px",
+                marginBottom: "20px",
+                marginLeft: "100px",
+                fontWeight: "bold",
+                fontSize: "25px",
+              }}
+            >
+              About artists
+            </div>
+            <div className="row">
+              <div style={{ marginLeft: "120px" }}>
+                <img
+                  style={{
+                    height: "80px",
+                    width: "80px",
+                    borderRadius: "40px",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  alt="artist"
+                  src="https://photo-resize-zmp3.zadn.vn/w360_r1x1_jpeg/avatars/f/1/1/1/f1113df32e09c1c5c6fe7069b0107c13.jpg"
+                />
+                <div
+                  style={{
+                    color: "#FFF",
+                    marginTop: "10px",
+                    textAlign: "center",
+                  }}
+                >
+                  BLACKPINK
+                </div>
+              </div>
+              <div style={{ marginLeft: "30px" }}>
+                <img
+                  style={{
+                    height: "80px",
+                    width: "80px",
+                    borderRadius: "40px",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  alt="artist"
+                  src="https://photo-resize-zmp3.zadn.vn/w360_r1x1_jpeg/avatars/6/1/61b57d1673f3673f181ddc8827b23171_1499068141.jpg"
+                />
+                <div
+                  style={{
+                    color: "#FFF",
+                    marginTop: "10px",
+                    alignSelf: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  Selena Gomez
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-      <div className="row" style={{ marginTop: "20px" }}>
+      <div className="row" style={{ marginTop: "20px", paddingBottom: "20px" }}>
         <div className="col-sm-8">
           <TopArtist artists={artists} />
           <div

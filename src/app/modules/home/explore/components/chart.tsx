@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Song } from "../../../../models/song";
+import { SKIP } from "../../../../redux/modules/player/actions";
 import "./../../../../../styles/container.css";
 
 interface Props {
@@ -10,6 +12,12 @@ interface Props {
 
 const TopChart: React.FunctionComponent<Props> = (props: Props) => {
   const [area, setArea] = React.useState<string>('vpop');
+  
+  const dispatch = useDispatch();
+
+  const handlePlayMusic = (song: Song) => {
+    dispatch({type: SKIP, payload: song})
+  }
 
   return (
     <>
@@ -37,6 +45,7 @@ const TopChart: React.FunctionComponent<Props> = (props: Props) => {
                     marginTop: "10px",
                     marginBottom: "10px",
                   }}
+                  onClick={() => handlePlayMusic(song)}
                 >
                   <div
                     style={{
@@ -71,6 +80,7 @@ const TopChart: React.FunctionComponent<Props> = (props: Props) => {
                     marginTop: "10px",
                     marginBottom: "10px",
                   }}
+                  onClick={() => handlePlayMusic(song)}
                 >
                   <div
                     style={{
@@ -105,6 +115,7 @@ const TopChart: React.FunctionComponent<Props> = (props: Props) => {
                     marginTop: "10px",
                     marginBottom: "10px",
                   }}
+                  onClick={() => handlePlayMusic(song)}
                 >
                   <div
                     style={{

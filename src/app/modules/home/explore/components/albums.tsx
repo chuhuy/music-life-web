@@ -29,6 +29,7 @@ const Albums: React.FunctionComponent<Props> = (props: Props) => {
           marginLeft: "5px",
           marginRight: "-10px",
           marginBottom: "20px",
+          paddingBottom: "35px"
         }}
       >
         <div className="row title-group">
@@ -39,7 +40,7 @@ const Albums: React.FunctionComponent<Props> = (props: Props) => {
         </div>
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
           {albums.map((album, index) => {
-            if (index < 5)
+            if (index < 6)
               return (
                 <div
                   className="row"
