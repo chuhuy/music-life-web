@@ -5,7 +5,7 @@ import { Song } from '../../../models/song';
 const initialState: Song = {
     isPlaying: false,
     title: '',
-    artist: '',
+    artists: '',
     url: '',
     id: 0,
     image_url: '',
@@ -28,7 +28,7 @@ export const playerReducer = (state: Song = initialState, action: Action) => {
                 ...state,
                 id: action.payload.id,
                 title: action.payload.title,
-                artist: action.payload.artist,
+                artists: action.payload.artists,
                 url: action.payload.url,
                 image_url: action.payload.image_url,
             };

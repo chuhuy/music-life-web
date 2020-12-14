@@ -36,14 +36,9 @@ export const getTopArtist = () => {
     return API.graphql(RESOURCE_URL + EXPLORE, query);
 }
 
-export const getGenresAndAlbum = () => {
+export const getAlbum = () => {
     const query = `
     query {
-        genres(first: 6 offset: 0) {
-            genre_id
-            name
-            image_url
-        }
         albums: albumsByGenre(genre_id: 1) {
             album_id
             title

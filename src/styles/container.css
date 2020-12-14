@@ -18,6 +18,10 @@
     font-size: small;
 }
 
+.see-all-button:hover, .see-all-button:active, .see-all-button:focus{
+    color: #85878B;
+}
+
 .container-title {
     color: #FFF;
     font-weight: 600;
@@ -29,10 +33,25 @@
     border-radius: 5px;
 }
 
+.chart-song-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+}
+
 .explore-artist-name {
     color: #FFF;
     font-weight: 500;
     text-align: center;
     margin-top: 5px;
     font-size: small
+}
+
+.genre-item {
+    height: 70px;
+    border-radius: 10px;
+    color: #FFF;
+    text-align: center;
+    line-height: 70px;
+    overflow: hidden;
 }

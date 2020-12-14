@@ -17,7 +17,7 @@ const TopArtist: React.FunctionComponent<Props> = (props: Props) => {
           <div className="container-title section-vertical-align">
             Top Artists
           </div>
-          <div className="see-all-button section-vertical-align">See all</div>
+          <a className="see-all-button section-vertical-align" href="/artists">See all</a>
         </div>
         <div
           className="row"

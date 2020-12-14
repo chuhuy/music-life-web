@@ -1,34 +1,137 @@
-import React from 'react';
-import './../../../../../styles/container.css'
+import React from "react";
+import { Song } from "../../../../models/song";
+import "./../../../../../styles/container.css";
 
-interface Props {}
+interface Props {
+  vpop: Array<Song>;
+  kpop: Array<Song>;
+  usuk: Array<Song>;
+}
 
 const TopChart: React.FunctionComponent<Props> = (props: Props) => {
-    return (
-        <>
-            <div className="common-container" style={{marginTop: '10px', paddingLeft: '20px', paddingRight: '20px'}}>
-                <div className="row title-group">
-                    <div className="container-title section-vertical-align">Top Chart</div>
-                    <div className="see-all-button section-vertical-align">See all</div>
-                </div>
-                <div className="row" style={{paddingLeft: '20px', paddingRight: '20px'}}>
-                    {/* <div style={{marginRight: '20px'}}>
-                        <img className="explore-artist-image" alt="Artist" src="https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/5/a/5/1/5a5164496ababbca1496193ec8b8afb1.jpg" />
-                        <div className="explore-artist-name">Binz</div>
-                    </div>
-                    <div style={{marginRight: '20px'}}>
-                        <img className="explore-artist-image" alt="Artist" src="https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/5/a/5/1/5a5164496ababbca1496193ec8b8afb1.jpg" />
-                        <div className="explore-artist-name">Binz</div>
-                    </div>
-                    <div style={{marginRight: '20px'}}>
-                        <img className="explore-artist-image" alt="Artist" src="https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/5/a/5/1/5a5164496ababbca1496193ec8b8afb1.jpg" />
-                        <div className="explore-artist-name">Binz</div>
-                    </div> */}
-                </div>
-            </div>
-        </>
-    );
-};
+  const [area, setArea] = React.useState<string>('vpop');
 
+  return (
+    <>
+      <div
+        className="common-container"
+        style={{ marginTop: "10px", paddingLeft: "20px", paddingRight: "20px"}}
+      >
+        <div className="row title-group">
+          <div className="container-title section-vertical-align">
+            Top Chart
+          </div>
+          <div className="see-all-button section-vertical-align" onClick={() => {setArea('vpop')}}>VPOP</div>
+          <div className="see-all-button section-vertical-align" onClick={() => {setArea('kpop')}}>KPOP</div>
+          <div className="see-all-button section-vertical-align" onClick={() => {setArea('usuk')}}>USUK</div>
+        </div>
+        <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+          {area === 'vpop' && props.vpop.map((song, index) => {
+            if (index < 10)
+              return (
+                <div
+                  className="row"
+                  key={index}
+                  style={{
+                    alignItems: "center",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#FFF",
+                      fontSize: "large",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {(index + 1 < 10) ? `0${index + 1}` : `${index + 1}`}
+                  </div>
+                  <img
+                    className="chart-song-image"
+                    alt={song.title}
+                    src={song.image_url}
+                  />
+                  <div style={{marginLeft: '10px'}}>
+                    <div style={{color: '#FFF', maxWidth: '200px', overflow: 'hidden', height: '20px'}}>{song.title}</div>
+                    <div style={{color: 'grey', fontSize: 'small'}}>{song.artists}</div>
+                  </div>
+                </div>
+              );
+            else return <></>;
+          })}
+          {area === 'kpop' && props.kpop.map((song, index) => {
+            if (index < 10)
+              return (
+                <div
+                  className="row"
+                  key={index}
+                  style={{
+                    alignItems: "center",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#FFF",
+                      fontSize: "large",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {(index + 1 < 10) ? `0${index + 1}` : `${index + 1}`}
+                  </div>
+                  <img
+                    className="chart-song-image"
+                    alt={song.title}
+                    src={song.image_url}
+                  />
+                  <div style={{marginLeft: '10px'}}>
+                    <div style={{color: '#FFF', maxWidth: '200px', overflow: 'hidden', height: '20px'}}>{song.title}</div>
+                    <div style={{color: 'grey', fontSize: 'small'}}>{song.artists}</div>
+                  </div>
+                </div>
+              );
+            else return <></>;
+          })}
+          {area === 'usuk' && props.usuk.map((song, index) => {
+            if (index < 10)
+              return (
+                <div
+                  className="row"
+                  key={index}
+                  style={{
+                    alignItems: "center",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#FFF",
+                      fontSize: "large",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {(index + 1 < 10) ? `0${index + 1}` : `${index + 1}`}
+                  </div>
+                  <img
+                    className="chart-song-image"
+                    alt={song.title}
+                    src={song.image_url}
+                  />
+                  <div style={{marginLeft: '10px'}}>
+                    <div style={{color: '#FFF', maxWidth: '200px', overflow: 'hidden', height: '20px'}}>{song.title}</div>
+                    <div style={{color: 'grey', fontSize: 'small'}}>{song.artists}</div>
+                  </div>
+                </div>
+              );
+            else return <></>;
+          })}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default TopChart;

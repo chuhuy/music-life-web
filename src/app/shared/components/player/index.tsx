@@ -31,7 +31,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const Player = (props: Props) => {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -44,7 +44,7 @@ const Player = (props: Props) => {
   });
 
   useEffect(() => {
-    setDuration(201);
+    if(refs.audio.current) setDuration(refs.audio.current.duration);
     // refs.audio.current?.play();
   }, []);
   const handlePausePlayClick = () => {
@@ -67,16 +67,16 @@ const Player = (props: Props) => {
   };
   return (
     <>
-      <div className="player-container row">
+      <div className="player-container row" style={{zIndex: 100}}>
         <div className="player-left-section section-vertical-align">
           <img
-            src={songs[3].image_url}
+            src={props.player.image_url}
             className="player-image"
             alt="Current Song"
           />
           <Col className={`title-group ${width < 400 ? "d-none" : ""}`}>
-            <div className="player-song-title">{songs[3].title}</div>
-            <div className="player-artist">{songs[3].artists[0].name}</div>
+            <div className="player-song-title">{props.player.title}</div>
+            <div className="player-artist">{props.player.artists}</div>
           </Col>
         </div>
         <div className="player-center-section section-vertical-align">
@@ -131,7 +131,7 @@ const Player = (props: Props) => {
             />
             <audio
               ref={refs.audio}
-              src={songs[3].url}
+              src={props.player.url}
               onTimeUpdate={() =>
                 setCurrentTime(
                   refs.audio.current ? refs.audio.current.currentTime : 0
