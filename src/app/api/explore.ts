@@ -25,7 +25,7 @@ export const exploreScreen = () => {
 };
 
 export const getTopArtist = () => {
-    const query = `
+  const query = `
     query {
         artists: searchByArtist(keyword: "a" first: 10) {
             artist_id
@@ -33,13 +33,13 @@ export const getTopArtist = () => {
             image_url
         }
     }`;
-    return API.graphql(RESOURCE_URL + EXPLORE, query);
-}
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
 
 export const getAlbum = () => {
-    const query = `
+  const query = `
     query {
-        albums: albumsByGenre(genre_id: 1) {
+        albums: albumsByGenre(genre_id: 1 first:40) {
             album_id
             title
             image_url
@@ -47,11 +47,11 @@ export const getAlbum = () => {
         }
     }
     `;
-    return API.graphql(RESOURCE_URL + EXPLORE, query);
-}
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
 
 export const getChart = () => {
-    const query = `
+  const query = `
         query {
             kpop: chart(area: KPOP) {
                 music_id
@@ -76,5 +76,32 @@ export const getChart = () => {
             }
         }
     `;
-    return API.graphql(RESOURCE_URL + EXPLORE, query);
-}
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const getGenres = () => {
+  const query = `
+      query {
+          genres(first: 23) {
+              genre_id
+              name
+              image_url
+          }
+      }
+      `;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const songsByGenre = (genre_id: string) => {
+  const query = `
+    query {
+        songs: songsByGenre (first: 600 genre_id: ${genre_id}) {
+            music_id
+            title
+            artists
+            url
+            image_url
+        }
+    }`;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};

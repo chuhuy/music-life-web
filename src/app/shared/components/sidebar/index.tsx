@@ -1,57 +1,80 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { RoutePaths } from "../../constants/routePaths";
-import { Nav } from 'react-bootstrap';
-import './sidebar.css';
-import { getCurrentUrl } from './../../helpers/url';
+import { Nav } from "react-bootstrap";
+import "./sidebar.css";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 interface Props {}
 
 const Side: React.FunctionComponent<Props> = (props: Props) => {
 
-    const [currentTab, setCurrentTab] = useState<number>(0);
+  const history = useHistory();
 
-    useEffect(() => {
-        switch(getCurrentUrl(window.location)) {
-            case RoutePaths.Explore: {
-                setCurrentTab(0);
-                break;
+  return (
+    <>
+      <Nav
+        className="d-none d-md-block sidebar position-fixed"
+      >
+        <div className="sidebar-sticky"></div>
+        <Nav.Item className="menu-item" style={{ marginTop: "100px" }}>
+          <div
+            className={
+              useRouteMatch(RoutePaths.Explore)?.isExact ? "active-menu-item" : "inactive-menu-item"
             }
-            case RoutePaths.Genres: {
-                setCurrentTab(1);
-                break;
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Explore,
+              });
+            }}
+          >
+            Explore
+          </div>
+        </Nav.Item>
+        <Nav.Item className="menu-item">
+          <div
+            className={
+              useRouteMatch(RoutePaths.Genres)?.isExact ? "active-menu-item" : "inactive-menu-item"
             }
-            case RoutePaths.Album: {
-                setCurrentTab(2);
-                break;
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Genres,
+              });
+            }}
+          >
+            Genres
+          </div>
+        </Nav.Item>
+        <Nav.Item className="menu-item">
+          <div
+            className={
+              useRouteMatch(RoutePaths.Album)?.isExact ? "active-menu-item" : "inactive-menu-item"
             }
-            case RoutePaths.Artist: {
-                setCurrentTab(3);
-                break;
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Album,
+              });
+            }}
+          >
+            Albums
+          </div>
+        </Nav.Item>
+        <Nav.Item className="menu-item">
+          <div
+            className={
+              useRouteMatch(RoutePaths.Artist)?.isExact ? "active-menu-item" : "inactive-menu-item"
             }
-        }
-    }, []);
-
-    return (
-        <>
-    
-            <Nav className="d-none d-md-block sidebar position-fixed" style={{paddingRight: '80px'}}>
-                <div className="sidebar-sticky"></div>
-                <Nav.Item className="menu-item" style={{marginTop: '100px'}}>
-                    <Nav.Link className={currentTab === 0 ? 'active-menu-item' : 'inactive-menu-item'} href={RoutePaths.Explore}>Explore</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="menu-item">
-                    <Nav.Link className={currentTab === 1 ? 'active-menu-item' : 'inactive-menu-item'}  href={RoutePaths.Genres}>Genres</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="menu-item">
-                    <Nav.Link className={currentTab === 2 ? 'active-menu-item' : 'inactive-menu-item'} href={RoutePaths.Album}>Albums</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="menu-item">
-                    <Nav.Link className={currentTab === 3 ? 'active-menu-item' : 'inactive-menu-item'} href={RoutePaths.Artist}>Artists</Nav.Link>
-                </Nav.Item>
-            </Nav>
-          
-        </>
-    );
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Artist,
+              });
+            }}
+          >
+            Artists
+          </div>
+        </Nav.Item>
+      </Nav>
+    </>
+  );
 };
 
 export default Side;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Album } from "../../../../models/album";
+import { RoutePaths } from "../../../../shared/constants/routePaths";
 import "./../../../../../styles/container.css";
 import { getAlbum } from "./../../../../api/explore";
 
@@ -9,6 +11,8 @@ interface Props {
 
 const Albums: React.FunctionComponent<Props> = (props: Props) => {
   const [albums, setAlbums] = useState<Array<Album>>([]);
+
+  const history = useHistory();
 
   useEffect(() => {
     getAlbum()
@@ -29,14 +33,21 @@ const Albums: React.FunctionComponent<Props> = (props: Props) => {
           marginLeft: "5px",
           marginRight: "-10px",
           marginBottom: "20px",
-          paddingBottom: "35px"
+          paddingBottom: "35px",
         }}
       >
         <div className="row title-group">
           <div className="container-title section-vertical-align">Albums</div>
-          <a className="see-all-button section-vertical-align" href="/albums">
+          <button
+            className="see-all-button section-vertical-align"
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Album,
+              });
+            }}
+          >
             See all
-          </a>
+          </button>
         </div>
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
           {albums.map((album, index) => {

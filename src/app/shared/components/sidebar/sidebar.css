@@ -38,13 +38,23 @@
 
 .active-menu-item {
     color: #5773FF;
+    padding-right: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-right-width: 5px;
+    border-color: #5773FF;
+    border-right-style: solid;
+
     /* border-right-width: 5px;
-    border-right-color: #5773FF;
-    background-color: red; */
+    border-right-color: #5773FF; */
+    /* background-color: red; */
 }
 
 .inactive-menu-item {
     color: #FFF;
+    padding-right: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .menu-item {

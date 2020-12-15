@@ -1,11 +1,13 @@
 import React from "react";
-import { Genre } from "../../../../models/genre";
+import { useHistory } from "react-router-dom";
+import { RoutePaths } from "../../../../shared/constants/routePaths";
 import "./../../../../../styles/container.css";
 
-interface Props {
-}
+interface Props {}
 
 const Genres: React.FunctionComponent<Props> = (props: Props) => {
+  const history = useHistory();
+
   return (
     <>
       <div
@@ -14,16 +16,30 @@ const Genres: React.FunctionComponent<Props> = (props: Props) => {
       >
         <div className="row title-group">
           <div className="container-title section-vertical-align">Genres</div>
-          <a className="see-all-button section-vertical-align" href="/genres">See all</a>
+          <button
+            className="see-all-button section-vertical-align"
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Genres,
+              });
+            }}
+          >
+            See all
+          </button>
         </div>
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
-          <div className="row" style={{marginBottom: '10px'}}>
+          <div className="row" style={{ marginBottom: "10px" }}>
             <div
               style={{
                 backgroundColor: "#476A8A",
                 marginRight: "10px",
               }}
               className="col-sm-5 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${3}&Alternative`,
+                });
+              }}
             >
               Alternative
             </div>
@@ -32,17 +48,27 @@ const Genres: React.FunctionComponent<Props> = (props: Props) => {
                 backgroundColor: "#A69984",
               }}
               className="col-sm-6 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${14}&R&B`,
+                });
+              }}
             >
               {`R&B`}
             </div>
           </div>
-          <div className="row" style={{marginBottom: '10px'}}>
+          <div className="row" style={{ marginBottom: "10px" }}>
             <div
               style={{
                 backgroundColor: "#A24C34",
                 marginRight: "10px",
               }}
               className="col-sm-6 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${11}&Dance Pop`,
+                });
+              }}
             >
               Dance Pop
             </div>
@@ -51,6 +77,11 @@ const Genres: React.FunctionComponent<Props> = (props: Props) => {
                 backgroundColor: "#0D4045",
               }}
               className="col-sm-5 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${6}&Electronic`,
+                });
+              }}
             >
               Electronic
             </div>
@@ -62,6 +93,11 @@ const Genres: React.FunctionComponent<Props> = (props: Props) => {
                 marginRight: "10px",
               }}
               className="col-sm-5 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${5}&Country`,
+                });
+              }}
             >
               Country
             </div>
@@ -70,6 +106,11 @@ const Genres: React.FunctionComponent<Props> = (props: Props) => {
                 backgroundColor: "#5547A5",
               }}
               className="col-sm-6 genre-item"
+              onClick={() => {
+                history.push({
+                  pathname: RoutePaths.Genres + `/${4}&Rock`,
+                });
+              }}
             >
               Rock
             </div>

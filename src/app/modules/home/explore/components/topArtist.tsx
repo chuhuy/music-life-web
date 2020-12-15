@@ -1,5 +1,7 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Artist } from "../../../../models/artist";
+import { RoutePaths } from "../../../../shared/constants/routePaths";
 import "./../../../../../styles/container.css";
 
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const TopArtist: React.FunctionComponent<Props> = (props: Props) => {
+  const history = useHistory();
   return (
     <>
       <div
@@ -17,20 +20,34 @@ const TopArtist: React.FunctionComponent<Props> = (props: Props) => {
           <div className="container-title section-vertical-align">
             Top Artists
           </div>
-          <a className="see-all-button section-vertical-align" href="/artists">See all</a>
+          <button
+            onClick={() => {
+              history.push({
+                pathname: RoutePaths.Artist,
+              });
+            }}
+            className="see-all-button section-vertical-align"
+          >
+            See all
+          </button>
         </div>
         <div
           className="row"
           style={{ paddingLeft: "20px", paddingRight: "20px" }}
         >
           {props.artists.map((artist) => (
-            <div style={{ marginRight: "20px", overflow: 'hidden', width: '60px' }} key={artist.artist_id}>
+            <div
+              style={{ marginRight: "20px", overflow: "hidden", width: "60px" }}
+              key={artist.artist_id}
+            >
               <img
                 className="explore-artist-image"
                 alt={artist.name}
                 src={artist.image_url}
               />
-              <div className="explore-artist-name" style={{maxLines: 1}}>{artist.name}</div>
+              <div className="explore-artist-name" style={{ maxLines: 1 }}>
+                {artist.name}
+              </div>
             </div>
           ))}
         </div>

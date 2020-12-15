@@ -12,10 +12,13 @@
     justify-content: space-between;
 }
 
-.see-all-button {
+.see-all-button, .see-all-button:focus {
     color: #85878B;
     font-weight: 600;
     font-size: small;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
 .see-all-button:hover, .see-all-button:active, .see-all-button:focus{

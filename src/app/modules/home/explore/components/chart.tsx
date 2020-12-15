@@ -29,9 +29,9 @@ const TopChart: React.FunctionComponent<Props> = (props: Props) => {
           <div className="container-title section-vertical-align">
             Top Chart
           </div>
-          <div className="see-all-button section-vertical-align" onClick={() => {setArea('vpop')}}>VPOP</div>
-          <div className="see-all-button section-vertical-align" onClick={() => {setArea('kpop')}}>KPOP</div>
-          <div className="see-all-button section-vertical-align" onClick={() => {setArea('usuk')}}>USUK</div>
+          <button className="see-all-button section-vertical-align" onClick={() => {setArea('vpop')}}>VPOP</button>
+          <button className="see-all-button section-vertical-align" onClick={() => {setArea('kpop')}}>KPOP</button>
+          <button className="see-all-button section-vertical-align" onClick={() => {setArea('usuk')}}>USUK</button>
         </div>
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
           {area === 'vpop' && props.vpop.map((song, index) => {

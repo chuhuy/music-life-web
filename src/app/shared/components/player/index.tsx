@@ -37,6 +37,7 @@ const Player = (props: Props) => {
   const player = useSelector((state: RootState) => state.player);
 
   const [currentTime, setCurrentTime] = useState(0);
+  const [isRepeat, setRepeat] = useState<boolean>(false);
 
   // const audioRef = useRef();
   const [refs] = useState<{
@@ -66,10 +67,10 @@ const Player = (props: Props) => {
     }
   };
   const handleTimeSliderChange = (x: any) => {
-    console.log(x)
+    console.log(x);
     if (refs.audio.current) {
-      refs.audio.current.currentTime = x * refs.audio.current.duration / 100;
-      setCurrentTime(x * refs.audio.current.duration / 100);
+      refs.audio.current.currentTime = (x * refs.audio.current.duration) / 100;
+      setCurrentTime((x * refs.audio.current.duration) / 100);
     }
     // console.log(x);
     if (!props.player.isPlaying) {
@@ -127,41 +128,89 @@ const Player = (props: Props) => {
               <button onClick={() => {}} className="player-icon-button">
                 <FontAwesomeIcon icon={faStepForward} color="#FFF" size="1x" />
               </button>
-              <button onClick={() => {}} className="player-icon-button">
-                <FontAwesomeIcon icon={faRedo} color="#FFF" size="1x" />
+              <button
+                onClick={() => {
+                  setRepeat(!isRepeat);
+                }}
+                className="player-icon-button"
+              >
+                <FontAwesomeIcon
+                  icon={faRedo}
+                  color={isRepeat ? "#5773FF" : "#FFF"}
+                  size="1x"
+                />
               </button>
             </div>
             <div>
-              <TimeSlider
-                axis="x"
-                xmax={duration}
-                x={currentTime}
-                onChange={({ x }) => handleTimeSliderChange(x)}
-                styles={{
-                  track: {
-                    backgroundColor: "#B3B3B3",
-                    height: "4px",
-                  },
-                  active: {
-                    backgroundColor: "#5773FF",
-                    height: "4px",
-                  },
-                  thumb: {
-                    width: "10px",
-                    height: "10px",
-                    backgroundColor: "#FFF",
-                    borderRadius: 5,
-                  },
-                }}
-              />
+              <div
+                className="row"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                {refs.audio.current && (
+                  <div style={{ color: "#FFF", marginRight: "10px" }}>{`${
+                    Math.floor(refs.audio.current.currentTime / 60) < 10
+                      ? "0"
+                      : ""
+                  }${Math.floor(refs.audio.current.currentTime / 60)}:${
+                    Math.floor(
+                      refs.audio.current.currentTime -
+                        Math.floor(refs.audio.current.currentTime / 60) * 60
+                    ) < 10
+                      ? "0"
+                      : ""
+                  }${Math.floor(
+                    refs.audio.current.currentTime -
+                      Math.floor(refs.audio.current.currentTime / 60) * 60
+                  )}`}</div>
+                )}
+                <TimeSlider
+                  axis="x"
+                  xmax={duration}
+                  x={currentTime}
+                  onChange={({ x }) => handleTimeSliderChange(x)}
+                  styles={{
+                    track: {
+                      backgroundColor: "#B3B3B3",
+                      height: "4px",
+                    },
+                    active: {
+                      backgroundColor: "#5773FF",
+                      height: "4px",
+                    },
+                    thumb: {
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor: "#FFF",
+                      borderRadius: 5,
+                    },
+                  }}
+                />
+                {refs.audio.current && (
+                  <div style={{ color: "#FFF", marginLeft: "10px" }}>{`${
+                    Math.floor(refs.audio.current.duration / 60) < 10 ? "0" : ""
+                  }${Math.floor(refs.audio.current.duration / 60)}:${
+                    Math.floor(
+                      refs.audio.current.duration -
+                        Math.floor(refs.audio.current.duration / 60) * 60
+                    ) < 10
+                      ? "0"
+                      : ""
+                  }${Math.floor(
+                    refs.audio.current.duration -
+                      Math.floor(refs.audio.current.duration / 60) * 60
+                  )}`}</div>
+                )}
+              </div>
               <audio
+                loop={isRepeat}
                 ref={refs.audio}
                 src={props.player.url}
                 onTimeUpdate={() => {
                   // if (refs.audio.current) console.log(Math.floor(refs.audio.current.currentTime * 100 / refs.audio.current.duration))
                   setCurrentTime(
                     refs.audio.current
-                      ? refs.audio.current.currentTime * 100 / refs.audio.current.duration
+                      ? (refs.audio.current.currentTime * 100) /
+                          refs.audio.current.duration
                       : 0
                   );
                 }}

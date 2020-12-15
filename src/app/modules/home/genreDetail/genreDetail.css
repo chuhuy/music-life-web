@@ -1,0 +1,23 @@
+.song-genre-image {
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform 1.5s ease-in-out;
+    transition: transform 1.5s ease-in-out;
+}
+
+.song-genre-image:hover {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+.pagin-button, .pagin-button:focus {
+    color: #FFF;
+    background-color: #5773FF;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 70px;
+    justify-content: center;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+}
