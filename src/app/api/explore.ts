@@ -27,7 +27,7 @@ export const exploreScreen = () => {
 export const getTopArtist = () => {
   const query = `
     query {
-        artists: searchByArtist(keyword: "a" first: 10) {
+        artists: searchByArtist(keyword: "a" first: 50) {
             artist_id
             name
             image_url
@@ -102,6 +102,63 @@ export const songsByGenre = (genre_id: string) => {
             url
             image_url
         }
+    }`;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const songsByAlbum = (album_id: string) => {
+  const query = `
+    query {
+      songs: songsByAlbum (album_id: ${album_id}) {
+          music_id
+          title
+          url
+          image_url
+          artists
+          lyric
+      }
+    }`;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const searchAlbum = (name: string) => {
+  const query = `
+    query {
+      album: searchByAlbum(keyword: "${name}" first: 40) {
+          album_id
+          title
+          release_date
+          image_url
+          artists
+      }
+    }`;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const artistById = (id: string) => {
+  const query = `
+  query {
+    artist: getArtistByID(artist_id: ${id}) {
+        artist_id
+        name
+        image_url
+        description
+    }
+}`;
+  return API.graphql(RESOURCE_URL + EXPLORE, query);
+};
+
+export const songsByArtist = (id: string) => {
+  const query = `
+    query {
+      songs: songsByArtist(artist_id: ${id}) {
+          music_id
+          title
+          url
+          image_url
+          artists
+          lyric
+      }
     }`;
   return API.graphql(RESOURCE_URL + EXPLORE, query);
 };

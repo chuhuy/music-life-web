@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getAlbum } from "../../../api/explore";
 import { Album } from "../../../models/album";
+import { RoutePaths } from "../../../shared/constants/routePaths";
 import { usePageTitle } from "./../../../hooks/usePageTitle";
 
 interface Props {}
@@ -18,9 +20,11 @@ const AlbumScreen: React.FunctionComponent<Props> = (props: Props) => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
   const [page, setPage] = useState<number>(1);
   const [itemPerPage, setItemPerPage] = useState<number>(10);
+
+  const history = useHistory();
 
   const handleNextPage = () => {
     if (page < albums.length / itemPerPage) setPage(page + 1);
@@ -28,6 +32,14 @@ const AlbumScreen: React.FunctionComponent<Props> = (props: Props) => {
 
   const handlePreviousPage = () => {
     if (page > 1) setPage(page - 1);
+  };
+
+  const handleOpenAlbum = (album_id: string, name: string) => {
+    name = name.replace('/', '-')
+    console.log(name);
+    history.push({
+      pathname: RoutePaths.Album + `/${album_id}&${name}`,
+    });
   };
   return (
     <>
@@ -46,7 +58,7 @@ const AlbumScreen: React.FunctionComponent<Props> = (props: Props) => {
                     marginRight: "20px",
                     marginBottom: "40px",
                   }}
-                  // onClick={() => handleOpenGenre(genre.genre_id, genre.name)}
+                  onClick={() => handleOpenAlbum(album.album_id, album.title)}
                 >
                   <img
                     style={{

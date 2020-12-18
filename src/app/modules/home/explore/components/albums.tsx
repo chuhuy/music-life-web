@@ -14,6 +14,14 @@ const Albums: React.FunctionComponent<Props> = (props: Props) => {
 
   const history = useHistory();
 
+  const handleOpenAlbum = (album_id: string, name: string) => {
+    name = name.replace('/', '-')
+    console.log(name);
+    history.push({
+      pathname: RoutePaths.Album + `/${album_id}&${name}`,
+    });
+  };
+
   useEffect(() => {
     getAlbum()
       .then((res) => {
@@ -61,6 +69,7 @@ const Albums: React.FunctionComponent<Props> = (props: Props) => {
                     marginTop: "10px",
                     marginBottom: "10px",
                   }}
+                  onClick={() => handleOpenAlbum(album.album_id, album.title)}
                 >
                   {/* <div
                     style={{

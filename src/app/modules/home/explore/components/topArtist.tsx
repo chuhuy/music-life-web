@@ -10,6 +10,14 @@ interface Props {
 
 const TopArtist: React.FunctionComponent<Props> = (props: Props) => {
   const history = useHistory();
+
+  const handleOpenArtist = (artist_id: string) => {
+    // name = name.replace('/', '-')
+    // console.log(name);
+    history.push({
+      pathname: RoutePaths.Artist + `/${artist_id}`,
+    });
+  };
   return (
     <>
       <div
@@ -35,21 +43,30 @@ const TopArtist: React.FunctionComponent<Props> = (props: Props) => {
           className="row"
           style={{ paddingLeft: "20px", paddingRight: "20px" }}
         >
-          {props.artists.map((artist) => (
-            <div
-              style={{ marginRight: "20px", overflow: "hidden", width: "60px" }}
-              key={artist.artist_id}
-            >
-              <img
-                className="explore-artist-image"
-                alt={artist.name}
-                src={artist.image_url}
-              />
-              <div className="explore-artist-name" style={{ maxLines: 1 }}>
-                {artist.name}
-              </div>
-            </div>
-          ))}
+          {props.artists.map((artist, index) => {
+            if (index < 12)
+              return (
+                <div
+                  style={{
+                    marginRight: "20px",
+                    overflow: "hidden",
+                    width: "60px",
+                  }}
+                  key={artist.artist_id}
+                  onClick={() => handleOpenArtist(artist.artist_id)}
+                >
+                  <img
+                    className="explore-artist-image"
+                    alt={artist.name}
+                    src={artist.image_url}
+                  />
+                  <div className="explore-artist-name" style={{ maxLines: 1 }}>
+                    {artist.name}
+                  </div>
+                </div>
+              );
+            else return <></>;
+          })}
         </div>
       </div>
     </>

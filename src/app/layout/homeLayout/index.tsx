@@ -7,6 +7,7 @@ import "./../../shared/components/sidebar/sidebar.css";
 import Header from "./../../shared/components/header";
 import { useDispatch } from "react-redux";
 import { DISABLE_LOADING } from "../../redux/modules/loading/actions";
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 interface Props {
   children: ReactChild;
 }
@@ -16,6 +17,12 @@ const HomeLayout: React.FunctionComponent<Props> = (props: Props) => {
   useEffect(() => {
     dispatch({ type: DISABLE_LOADING });
   }, []);
+
+  const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if(width === 375) window.alert('Please download our mobile app for best experience')
+  }, [width])
 
   return (
     <>

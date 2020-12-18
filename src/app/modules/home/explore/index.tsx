@@ -10,6 +10,8 @@ import { Song } from "../../../models/song";
 import { useWindowDimensions } from "../../../hooks/useWindowDimensions";
 import { useDispatch } from "react-redux";
 import { SKIP } from "../../../redux/modules/player/actions";
+import { useHistory } from "react-router-dom";
+import { RoutePaths } from "../../../shared/constants/routePaths";
 
 interface Props {}
 
@@ -44,6 +46,8 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
       });
   }, []);
 
+  const history = useHistory();
+
   usePageTitle("Music Life | Explore");
   const handlePlayTrendingSong = () => {
     const song: Song = {
@@ -57,6 +61,14 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
     };
     dispatch({ type: SKIP, payload: song });
     // dispatch({type: PLAY})
+  };
+
+  const handleOpenArtist = (artist_id: string) => {
+    // name = name.replace('/', '-')
+    // console.log(name);
+    history.push({
+      pathname: RoutePaths.Artist + `/${artist_id}`,
+    });
   };
 
   return (
@@ -158,7 +170,7 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
               About artists
             </div>
             <div className="row">
-              <div style={{ marginLeft: "120px" }}>
+              <div style={{ marginLeft: "120px" }} onClick={() => handleOpenArtist("1")}>
                 <img
                   style={{
                     height: "80px",
@@ -181,7 +193,7 @@ const ExploreScreen: React.FunctionComponent<Props> = (props: Props) => {
                   BLACKPINK
                 </div>
               </div>
-              <div style={{ marginLeft: "30px" }}>
+              <div style={{ marginLeft: "30px" }} onClick={() => handleOpenArtist("2")}>
                 <img
                   style={{
                     height: "80px",
