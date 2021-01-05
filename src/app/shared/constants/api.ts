@@ -1,10 +1,10 @@
 //  Auth server
-// export const AUTH_URL = 'music-life-auth.herokuapp.com';
-export const AUTH_URL = '127.0.0.1:3000';
+export const AUTH_URL = 'music-life-auth.herokuapp.com';
+// export const AUTH_URL = '127.0.0.1:3000';
 
 //  Resource server
-// export const RESOURCE_URL = 'music-life-resource.herokuapp.com';
-export const RESOURCE_URL = '127.0.0.1:4000';
+export const RESOURCE_URL = 'music-life-resource.herokuapp.com';
+// export const RESOURCE_URL = '127.0.0.1:4000';
 
 //  Chat server
 
